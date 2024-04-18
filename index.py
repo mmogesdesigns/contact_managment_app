@@ -62,27 +62,53 @@ while True:
 
 
     elif choice==3:
-        delete_contact=input("Enter the phone number of the contaact you would like to delete: ")
+        delete_contact=input("Enter the phone number of the contact you would like to delete: ")
         if delete_contact not in contacts:
             print("Invalid response. Please enter a phone number that exists in the phonebook. ")
         else:
             confirm = input(f"Are you sure you want to delete this contact? (yes/no)")
             if confirm =="yes":
                 contacts.pop(delete_contact)
+                print("Contact details updated successfully! ")
                 continue
 
 
+
     elif choice==4:
-        pass
-    
-    
-    
-    
-    
+        search_for_contact = input("Enter the phone number of the contact you want to search for: ")
+        if search_for_contact not in contacts:
+            print("Invalid response. Please enter a phone number that exists in the phonebook. ")   
+        else: 
+            contact_details = contacts[search_for_contact]
+            print("Contact Information: ")
+            print(f"Name: {contact_details['name']}")
+            print(f"Phone Number: {contact_details['phone']}")
+            print(f"Email: {contact_details[email]}")
+            print(f"Additional Information: {contact_to_edit['additional_info']}")
+            
     elif choice==5:
-        pass
+        if contacts:
+            print("All Contacts: ")  
+            for contact_number in contacts:
+                contact_details= contacts[contact_number]
+                print(f"Name: {contact_details['name']}, Phone Number: {contact_details['phone']}, Email: {contact_details['email']}, Additional Information: {contact_details['additional_info']}")  
+        else: 
+            print("There are currently no contacts.\n ")
+    
     elif choice==6:
-        pass
+        try:
+            filename = input("Enter the filename to export contacts to (e.g contacts.txt): ") 
+            with open(filename,'w') as file:
+                if contacts: 
+                    for contact_number in contacts:
+                        contact_details = contacts[contact_number]
+                        file.write(f"Name: {contact_details['name']}, Phone Number: {contact_number}, Email: {contact_details['email']}, Additional Information: {contact_details['additional info']}\n")
+                    print(f"All contacts have been exported to {filename}")
+                else:
+                    print("There are currently no contacts to export. ")
+        except IOError as e:
+            print(f"An error occurred while writing to the file: {e}")
+
     elif choice==7:
         break
     else:
